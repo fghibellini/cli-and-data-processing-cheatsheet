@@ -16,7 +16,7 @@ df = pd.DataFrame(lines.iter(type=dict))
 print("mean model byte size: {mean:.2f}".format(mean = df["json_byte_count"].mean()))
 ```
 
-[jq](https://stedolan.github.io/jq/manual/) is very good at generating JSONL.
+[jq](https://stedolan.github.io/jq/manual/) is very good at generating JSONL (the `-c` flag will force single-line output).
 
 ```bash
 { for f in pages/*; do cat $f | jq -c '.data.psr.product_models.items | map({ model_id: .merchant_product_model_id, json_byte_count: tojson | utf8bytelength }) | .[]'; done } > model-byte-sizes.jsonl
