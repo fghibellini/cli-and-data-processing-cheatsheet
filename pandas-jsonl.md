@@ -19,7 +19,7 @@ print("mean model byte size: {mean:.2f}".format(mean = df["json_byte_count"].mea
 [jq](https://stedolan.github.io/jq/manual/) is very good at generating JSONL.
 
 ```bash
-{ for f in pages/*; do cat $f | jq '.data.psr.product_models.items | map({ model_id: .merchant_product_model_id, json_byte_count: tojson | utf8bytelength }) | .[]' -c; done } > model-byte-sizes.jsonl
+{ for f in pages/*; do cat $f | jq -c '.data.psr.product_models.items | map({ model_id: .merchant_product_model_id, json_byte_count: tojson | utf8bytelength }) | .[]'; done } > model-byte-sizes.jsonl
 ```
 
 first few lines of the resulting file `model-byte-sizes.jsonl`:
